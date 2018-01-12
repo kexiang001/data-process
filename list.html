@@ -37,7 +37,7 @@
 			</div>
 	
 	
-	<table class="wrap-bd" border="1">
+		<table class="wrap-bd" border="1">
 				<tbody><tr>
 					<th><input type="checkbox" id="allChoose"></th>
 					<th>姓名</th>
@@ -141,8 +141,10 @@
 			</tbody>
 			</table>	
 			
-				
-		</div>
+	</div>
+	<div class="xinzeng">
+		
+	</div>
 		<script type="text/html" id="addHtml">
 			<form>
 				<div class="item clearfix">
@@ -200,3 +202,112 @@
 		<script type="text/javascript" src="js/list.js" ></script>
 	</body>
 </html>
+<script src="js/jquery.min.js"></script>
+<script src="js/underscore-min.js"></script>
+<script type="text/template" id="tp1">
+	<tr>
+		<td><input type="checkbox" class="choose"></td>
+		<td>
+			<%= name%>
+		</td>
+		<td><%= age%></td>
+		<td><%= sex%></td>
+		<td><%= jiguan%></td>
+		<td><%= id%></td>
+		<td><%= phonenum%></td>
+		<td><%= work%></td>
+		<td>
+			<button id="updateBtn" type="button">修改</button>
+			<button id="delBtn" type="button">删除</button>
+		</td>		
+	</tr>
+</script>
+<script>
+//2.新增人员
+//3.删除人员
+	var _html=document.getElementById('addHtml').innerHTML;
+	$('.xinzeng').html(_html)
+	$('.wrap-bd button:even').click(function(){
+		$('.xinzeng').css('display','block')
+		
+		var cc = $(this).parent().parent().index()
+		//console.log(cc)
+		var dd = $('table tbody tr:eq(2) td').val()
+		console.log(dd)
+		$('#submitBtn').click(function(){
+			alert("修改成功")
+		})
+		
+		
+	})
+	$('.wrap-bd button:odd').click(function(){
+		
+		$(this).parent().parent().remove();
+		alert('删除成功！')
+	})
+	
+	$('#addBtn').click(function(){
+		$('.xinzeng').css('display','block')
+	})
+	$('#submitBtn').click(function(){
+		var name = $('.xinzeng input:eq(0)').val();
+		
+		var age = $('.xinzeng input:eq(1)').val();
+		var sex = '';
+		
+		$('.xinzeng input:eq(2)').click(function(){
+			sex = '男'
+		})
+		$('.xinzeng input:eq(3)').click(function(){
+			sex = '女'
+		})
+		
+		console.log(sex)
+		//sex = $('.xinzeng input:eq(2)').val();
+		var jiguan = $('.xinzeng input:eq(4)').val();
+		var id = $('.xinzeng input:eq(5)').val();
+		var phonenum = $('.xinzeng input:eq(6)').val();
+		var work = $('.xinzeng input:eq(7)').val();
+		var str = $("#tp1").html()
+		var f = _.template(str)
+		var json = {
+			name:name,
+			age:age,
+			sex:sex,
+			jiguan:jiguan,
+			id:id,
+			phonenum:phonenum,
+			work:work
+		}
+		var h = f(json)
+		$('.wrap-bd').append(h)
+		
+		$('.wrap-bd button:odd').click(function(){
+		
+		$(this).parent().parent().remove();
+			alert('删除成功！')
+		})
+		$('.xinzeng').css('display','none')
+		alert('添加成功！')
+		
+	})
+
+
+
+
+ //1.全选功能实现
+$(function(){
+	$('#allChoose').click(function(){
+		$(".choose input:checkbox").prop("checked",$(this).prop("checked"));
+		
+	})
+    $(".choose:checkbox").click(function () {
+        if($(".choose:checkbox").length === $(".choose:checked").length){
+            $("#allChoose").prop("checked",true);
+        }else{
+            $("#allChoose").prop("checked",false);
+        }
+    });
+})
+
+</script>

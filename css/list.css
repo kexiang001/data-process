@@ -145,3 +145,8 @@
 .box .box-bd .item-btn .canelBtn{
 	float: right;
 }
+.xinzeng{
+	position: absolute;left: 50%;top: 50px;margin-left: -150px;
+	width: 300px;height: 440px;border: 1px solid #999;background: #F0F0F0;z-index: 10;
+	display: none;
+}
